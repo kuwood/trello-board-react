@@ -49,36 +49,46 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(34);
 	
-	var Card = function Card() {
+	var Card = function Card(props) {
 	    return React.createElement(
 	        'div',
 	        null,
-	        'This is a Card'
+	        props.text
 	    );
 	};
 	
-	var CardList = function CardList() {
+	var CardList = function CardList(props) {
 	    return React.createElement(
 	        'div',
 	        null,
-	        React.createElement(Card, null),
-	        React.createElement(Card, null),
-	        React.createElement(Card, null)
+	        React.createElement(
+	            'h3',
+	            null,
+	            props.title
+	        ),
+	        React.createElement(Card, { text: props.cards[0] }),
+	        React.createElement(Card, { text: props.cards[1] }),
+	        React.createElement(Card, { text: props.cards[2] })
 	    );
 	};
 	
-	var Board = function Board() {
+	var Board = function Board(props) {
 	    return React.createElement(
 	        'div',
 	        null,
-	        React.createElement(CardList, null),
-	        React.createElement(CardList, null),
-	        React.createElement(CardList, null)
+	        React.createElement(
+	            'h1',
+	            null,
+	            props.title
+	        ),
+	        React.createElement(CardList, { title: props.lists[0], cards: ["Card 1", "Card 2", "Card 3"] }),
+	        React.createElement(CardList, { title: props.lists[1], cards: ["Card 1", "Card 2", "Card 3"] }),
+	        React.createElement(CardList, { title: props.lists[2], cards: ["Card 1", "Card 2", "Card 3"] })
 	    );
 	};
 	
 	document.addEventListener('DOMContentLoaded', function () {
-	    ReactDOM.render(React.createElement(Board, null), document.getElementById('app'));
+	    ReactDOM.render(React.createElement(Board, { title: 'Board 1', lists: ["List 1", "List 2", "List 3"] }), document.getElementById('app'));
 	});
 
 /***/ },
