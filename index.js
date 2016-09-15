@@ -5,15 +5,34 @@ const Card = props => {
         return ( <div>{props.text}</div> );
 }
 
-const CardList = props => {
-    return (<div>
-                <h3>{props.title}</h3>
-                <Card text={props.cards[0]}/>
-                <Card text={props.cards[1]}/>
-                <Card text={props.cards[2]}/>
-            </div>
-    )
-}
+const CardList = React.createClass({
+    getInitialState: function() {
+        return {
+            submitted: false
+        }
+    },
+    onAddInputChanged: function() {
+        console.log("input changed!");
+    },
+    onAddSubmit: function(event) {
+        event.preventDefault()
+        console.log("submit!");
+    },
+    render: function() {
+        return (<div>
+                    <h3>{this.props.title}</h3>
+                    <Card text={this.props.cards[0]}/>
+                    <Card text={this.props.cards[1]}/>
+                    <Card text={this.props.cards[2]}/>
+                    <form>
+                        <input onChange={this.onAddInputChanged}></input>
+                        <button onClick={this.onAddSubmit}>Submit</button>
+                    </form>
+                </div>
+
+        )
+    }
+})
 
 const Board = props => {
     return (<div>

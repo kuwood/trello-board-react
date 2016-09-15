@@ -57,20 +57,46 @@
 	    );
 	};
 	
-	var CardList = function CardList(props) {
-	    return React.createElement(
-	        'div',
-	        null,
-	        React.createElement(
-	            'h3',
+	var CardList = React.createClass({
+	    displayName: 'CardList',
+	
+	    getInitialState: function getInitialState() {
+	        return {
+	            submitted: false
+	        };
+	    },
+	    onAddInputChanged: function onAddInputChanged() {
+	        console.log("input changed!");
+	    },
+	    onAddSubmit: function onAddSubmit(event) {
+	        event.preventDefault();
+	        console.log("submit!");
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'div',
 	            null,
-	            props.title
-	        ),
-	        React.createElement(Card, { text: props.cards[0] }),
-	        React.createElement(Card, { text: props.cards[1] }),
-	        React.createElement(Card, { text: props.cards[2] })
-	    );
-	};
+	            React.createElement(
+	                'h3',
+	                null,
+	                this.props.title
+	            ),
+	            React.createElement(Card, { text: this.props.cards[0] }),
+	            React.createElement(Card, { text: this.props.cards[1] }),
+	            React.createElement(Card, { text: this.props.cards[2] }),
+	            React.createElement(
+	                'form',
+	                null,
+	                React.createElement('input', { onChange: this.onAddInputChanged }),
+	                React.createElement(
+	                    'button',
+	                    { onClick: this.onAddSubmit },
+	                    'Submit'
+	                )
+	            )
+	        );
+	    }
+	});
 	
 	var Board = function Board(props) {
 	    return React.createElement(
