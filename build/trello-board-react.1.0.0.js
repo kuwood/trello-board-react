@@ -49,6 +49,7 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(34);
 	
+	//stateless component
 	var Card = function Card(props) {
 	    return React.createElement(
 	        'div',
@@ -57,13 +58,16 @@
 	    );
 	};
 	
+	//stateless component
 	var CardList = function CardList(props) {
 	    var handleSubmit = function handleSubmit(event) {
 	        event.preventDefault();
 	    };
-	    var list = props.cards.map(function (card, index) {
-	        return React.createElement(Card, { text: card, key: index });
+	    //maps array of cards to Card Components
+	    var list = props.cards.map(function (cardText, index) {
+	        return React.createElement(Card, { text: cardText, key: index });
 	    });
+	    console.log(list);
 	    return React.createElement(
 	        'div',
 	        null,
@@ -93,7 +97,7 @@
 	        )
 	    );
 	};
-	
+	//houses state for the input text and cards.
 	var ListContainer = React.createClass({
 	    displayName: 'ListContainer',
 	
@@ -120,6 +124,7 @@
 	    }
 	});
 	
+	//stateless component
 	var Board = function Board(props) {
 	    return React.createElement(
 	        'div',

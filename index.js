@@ -1,17 +1,21 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 
+//stateless component
 const Card = props => {
-        return ( <div>{props.text}</div> );
+        return (<div>{props.text}</div>);
 }
 
+//stateless component
 const CardList = props => {
     let handleSubmit = function(event) {
       event.preventDefault()
     }
-    let list = props.cards.map((card, index) => {
-        return (<Card text={card} key={index}/>)
+    //maps array of cards to Card Components
+    let list = props.cards.map((cardText, index) => {
+        return (<Card text={cardText} key={index}/>)
     })
+    console.log(list);
     return (
         <div>
             <div>
@@ -27,7 +31,7 @@ const CardList = props => {
         </div>
     )
 }
-
+//houses state for the input text and cards.
 const ListContainer = React.createClass({
     getInitialState: function() {
         return {
@@ -52,6 +56,8 @@ const ListContainer = React.createClass({
     }
 })
 
+
+//stateless component
 const Board = props => {
     return (<div>
                 <h1>{props.title}</h1>
