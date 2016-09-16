@@ -5,31 +5,49 @@ const Card = props => {
         return ( <div>{props.text}</div> );
 }
 
-const CardList = React.createClass({
+const CardList = props => {
+    let handleSubmit = function(event) {
+      event.preventDefault()
+    }
+    let list = props.cards.map((card, index) => {
+        return (<Card text={card} key={index}/>)
+    })
+    return (
+        <div>
+            <div>
+                <h3>{props.title}</h3>
+                {list}
+            </div>
+            <div>
+                <form onSubmit={handleSubmit}>
+                    <input onChange={props.onChange}></input>
+                    <button onClick={props.onClick}>Submit</button>
+                </form>
+            </div>
+        </div>
+    )
+}
+
+const ListContainer = React.createClass({
     getInitialState: function() {
         return {
-            submitted: false
+            text: "",
+            cards: []
         }
     },
-    onAddInputChanged: function() {
-        console.log("input changed!");
+    onAddInputChanged: function(event) {
+        this.setState({text: event.target.value})
     },
     onAddSubmit: function(event) {
-        event.preventDefault()
-        console.log("submit!");
+        let cards = this.state.cards
+        cards.push(this.state.text)
+        this.setState({cards: cards})
     },
     render: function() {
-        return (<div>
-                    <h3>{this.props.title}</h3>
-                    <Card text={this.props.cards[0]}/>
-                    <Card text={this.props.cards[1]}/>
-                    <Card text={this.props.cards[2]}/>
-                    <form>
-                        <input onChange={this.onAddInputChanged}></input>
-                        <button onClick={this.onAddSubmit}>Submit</button>
-                    </form>
-                </div>
-
+        return (
+            <div>
+                <CardList cards={this.state.cards} onChange={this.onAddInputChanged} onClick={this.onAddSubmit} title={this.props.title}/>
+            </div>
         )
     }
 })
@@ -37,13 +55,13 @@ const CardList = React.createClass({
 const Board = props => {
     return (<div>
                 <h1>{props.title}</h1>
-                <CardList title={props.lists[0]} cards={["Card 1","Card 2","Card 3"]}/>
-                <CardList title={props.lists[1]} cards={["Card 1","Card 2","Card 3"]}/>
-                <CardList title={props.lists[2]} cards={["Card 1","Card 2","Card 3"]}/>
+                <ListContainer title="List 1"/>
+                <ListContainer title="List 2"/>
+                <ListContainer title="List 3"/>
             </div>
     )
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    ReactDOM.render(<Board title="Board 1" lists={["List 1", "List 2", "List 3"]}/>, document.getElementById('app'));
+    ReactDOM.render(<Board title="Board 1"/>, document.getElementById('app'));
 });

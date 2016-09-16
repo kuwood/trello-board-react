@@ -57,43 +57,65 @@
 	    );
 	};
 	
-	var CardList = React.createClass({
-	    displayName: 'CardList',
-	
-	    getInitialState: function getInitialState() {
-	        return {
-	            submitted: false
-	        };
-	    },
-	    onAddInputChanged: function onAddInputChanged() {
-	        console.log("input changed!");
-	    },
-	    onAddSubmit: function onAddSubmit(event) {
+	var CardList = function CardList(props) {
+	    var handleSubmit = function handleSubmit(event) {
 	        event.preventDefault();
-	        console.log("submit!");
-	    },
-	    render: function render() {
-	        return React.createElement(
+	    };
+	    var list = props.cards.map(function (card, index) {
+	        return React.createElement(Card, { text: card, key: index });
+	    });
+	    return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
 	            'div',
 	            null,
 	            React.createElement(
 	                'h3',
 	                null,
-	                this.props.title
+	                props.title
 	            ),
-	            React.createElement(Card, { text: this.props.cards[0] }),
-	            React.createElement(Card, { text: this.props.cards[1] }),
-	            React.createElement(Card, { text: this.props.cards[2] }),
+	            list
+	        ),
+	        React.createElement(
+	            'div',
+	            null,
 	            React.createElement(
 	                'form',
-	                null,
-	                React.createElement('input', { onChange: this.onAddInputChanged }),
+	                { onSubmit: handleSubmit },
+	                React.createElement('input', { onChange: props.onChange }),
 	                React.createElement(
 	                    'button',
-	                    { onClick: this.onAddSubmit },
+	                    { onClick: props.onClick },
 	                    'Submit'
 	                )
 	            )
+	        )
+	    );
+	};
+	
+	var ListContainer = React.createClass({
+	    displayName: 'ListContainer',
+	
+	    getInitialState: function getInitialState() {
+	        return {
+	            text: "",
+	            cards: []
+	        };
+	    },
+	    onAddInputChanged: function onAddInputChanged(event) {
+	        this.setState({ text: event.target.value });
+	    },
+	    onAddSubmit: function onAddSubmit(event) {
+	        var cards = this.state.cards;
+	        cards.push(this.state.text);
+	        this.setState({ cards: cards });
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'div',
+	            null,
+	            React.createElement(CardList, { cards: this.state.cards, onChange: this.onAddInputChanged, onClick: this.onAddSubmit, title: this.props.title })
 	        );
 	    }
 	});
@@ -107,14 +129,14 @@
 	            null,
 	            props.title
 	        ),
-	        React.createElement(CardList, { title: props.lists[0], cards: ["Card 1", "Card 2", "Card 3"] }),
-	        React.createElement(CardList, { title: props.lists[1], cards: ["Card 1", "Card 2", "Card 3"] }),
-	        React.createElement(CardList, { title: props.lists[2], cards: ["Card 1", "Card 2", "Card 3"] })
+	        React.createElement(ListContainer, { title: 'List 1' }),
+	        React.createElement(ListContainer, { title: 'List 2' }),
+	        React.createElement(ListContainer, { title: 'List 3' })
 	    );
 	};
 	
 	document.addEventListener('DOMContentLoaded', function () {
-	    ReactDOM.render(React.createElement(Board, { title: 'Board 1', lists: ["List 1", "List 2", "List 3"] }), document.getElementById('app'));
+	    ReactDOM.render(React.createElement(Board, { title: 'Board 1' }), document.getElementById('app'));
 	});
 
 /***/ },
