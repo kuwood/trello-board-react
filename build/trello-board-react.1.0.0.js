@@ -67,7 +67,6 @@
 	    var list = props.cards.map(function (cardText, index) {
 	        return React.createElement(Card, { text: cardText, key: index });
 	    });
-	    console.log(list);
 	    return React.createElement(
 	        'div',
 	        null,
@@ -102,10 +101,7 @@
 	    displayName: 'ListContainer',
 	
 	    getInitialState: function getInitialState() {
-	        return {
-	            text: "",
-	            cards: []
-	        };
+	        return { text: "", cards: [] };
 	    },
 	    onAddInputChanged: function onAddInputChanged(event) {
 	        this.setState({ text: event.target.value });
