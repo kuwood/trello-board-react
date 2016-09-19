@@ -48,93 +48,7 @@
 	
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(34);
-	
-	//stateless component
-	var Card = function Card(props) {
-	    return React.createElement(
-	        'div',
-	        null,
-	        props.text
-	    );
-	};
-	
-	//stateless component
-	var CardList = function CardList(props) {
-	    var handleSubmit = function handleSubmit(event) {
-	        event.preventDefault();
-	    };
-	    //maps array of cards to Card Components
-	    var list = props.cards.map(function (cardText, index) {
-	        return React.createElement(Card, { text: cardText, key: index });
-	    });
-	    return React.createElement(
-	        'div',
-	        null,
-	        React.createElement(
-	            'div',
-	            null,
-	            React.createElement(
-	                'h3',
-	                null,
-	                props.title
-	            ),
-	            list
-	        ),
-	        React.createElement(
-	            'div',
-	            null,
-	            React.createElement(
-	                'form',
-	                { onSubmit: handleSubmit },
-	                React.createElement('input', { onChange: props.onChange }),
-	                React.createElement(
-	                    'button',
-	                    { onClick: props.onClick },
-	                    'Submit'
-	                )
-	            )
-	        )
-	    );
-	};
-	//houses state for the input text and cards.
-	var ListContainer = React.createClass({
-	    displayName: 'ListContainer',
-	
-	    getInitialState: function getInitialState() {
-	        return { text: "", cards: [] };
-	    },
-	    onAddInputChanged: function onAddInputChanged(event) {
-	        this.setState({ text: event.target.value });
-	    },
-	    onAddSubmit: function onAddSubmit(event) {
-	        var cards = this.state.cards;
-	        cards.push(this.state.text);
-	        this.setState({ cards: cards });
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'div',
-	            null,
-	            React.createElement(CardList, { cards: this.state.cards, onChange: this.onAddInputChanged, onClick: this.onAddSubmit, title: this.props.title })
-	        );
-	    }
-	});
-	
-	//stateless component
-	var Board = function Board(props) {
-	    return React.createElement(
-	        'div',
-	        null,
-	        React.createElement(
-	            'h1',
-	            null,
-	            props.title
-	        ),
-	        React.createElement(ListContainer, { title: 'List 1' }),
-	        React.createElement(ListContainer, { title: 'List 2' }),
-	        React.createElement(ListContainer, { title: 'List 3' })
-	    );
-	};
+	var Board = __webpack_require__(172);
 	
 	document.addEventListener('DOMContentLoaded', function () {
 	    ReactDOM.render(React.createElement(Board, { title: 'Board 1' }), document.getElementById('app'));
@@ -21510,6 +21424,137 @@
 	
 	module.exports = ReactDOMNullInputValuePropHook;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 172 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var ListContainer = __webpack_require__(173);
+	
+	//stateless component
+	var Board = function Board(props) {
+	    return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	            'h1',
+	            null,
+	            props.title
+	        ),
+	        React.createElement(ListContainer, { title: 'List 1' }),
+	        React.createElement(ListContainer, { title: 'List 2' }),
+	        React.createElement(ListContainer, { title: 'List 3' })
+	    );
+	};
+	
+	module.exports = Board;
+
+/***/ },
+/* 173 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var CardList = __webpack_require__(174);
+	
+	//houses state for the input text and cards.
+	var ListContainer = React.createClass({
+	    displayName: 'ListContainer',
+	
+	    getInitialState: function getInitialState() {
+	        return { text: "", cards: [] };
+	    },
+	    onAddInputChanged: function onAddInputChanged(event) {
+	        this.setState({ text: event.target.value });
+	    },
+	    onAddSubmit: function onAddSubmit(event) {
+	        var cards = this.state.cards;
+	        cards.push(this.state.text);
+	        this.setState({ cards: cards });
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            'div',
+	            null,
+	            React.createElement(CardList, { cards: this.state.cards, onChange: this.onAddInputChanged, onClick: this.onAddSubmit, title: this.props.title })
+	        );
+	    }
+	});
+	
+	module.exports = ListContainer;
+
+/***/ },
+/* 174 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	var Card = __webpack_require__(175);
+	
+	//stateless component
+	var CardList = function CardList(props) {
+	    var handleSubmit = function handleSubmit(event) {
+	        event.preventDefault();
+	    };
+	    //maps array of cards to Card Components
+	    var list = props.cards.map(function (cardText, index) {
+	        return React.createElement(Card, { text: cardText, key: index });
+	    });
+	    return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	            'div',
+	            null,
+	            React.createElement(
+	                'h3',
+	                null,
+	                props.title
+	            ),
+	            list
+	        ),
+	        React.createElement(
+	            'div',
+	            null,
+	            React.createElement(
+	                'form',
+	                { onSubmit: handleSubmit },
+	                React.createElement('input', { onChange: props.onChange }),
+	                React.createElement(
+	                    'button',
+	                    { onClick: props.onClick },
+	                    'Submit'
+	                )
+	            )
+	        )
+	    );
+	};
+	
+	module.exports = CardList;
+
+/***/ },
+/* 175 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(1);
+	
+	//stateless component
+	var Card = function Card(props) {
+	    return React.createElement(
+	        'div',
+	        null,
+	        props.text
+	    );
+	};
+	
+	module.exports = Card;
 
 /***/ }
 /******/ ]);
