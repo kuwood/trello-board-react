@@ -17,7 +17,7 @@ const ListContainer = React.createClass({
     render: function() {
         return (
             <div>
-                <CardList cards={this.state.cards} onChange={this.onAddInputChanged} onClick={this.onAddSubmit} title={this.props.title}/>
+                <CardList ref="button" cards={this.state.cards} onChange={this.onAddInputChanged} onClick={this.onAddSubmit} title={this.props.title}/>
             </div>
         )
     }
